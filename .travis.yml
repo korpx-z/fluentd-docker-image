@@ -1,20 +1,18 @@
-language: bash
-
-sudo: false
-
-os:
-  - linux
-  # - linux-ppc64le
-
+arch: s390x
 services:
   - docker
-
 env:
-  - Dockerfile=v1.11/alpine
-  - Dockerfile=v1.11/debian
-
-before_script:
-  - make image DOCKERFILE=$Dockerfile VERSION=test
-
-script:
-  - make test DOCKERFILE=$Dockerfile VERSION=test
+  global:
+#    - TEST_DIR="$PWD/test/2.6/alpine3.12"
+#    - TEST_SCRIPT="test.sh"
+    - BUILD_DIR="$PWD/v1.10/alpine/"
+    - REPO="quay.io/ibmz/fluentd"
+    - TAG="$REPO:1.10"
+before_script: 
+#  - cd $TEST_DIR && chmod +x $TEST_SCRIPT && chmod +x runs-ruby-apps/test.rb
+  - docker login quay.io -u $ROBOT -p $ROBOT_TOKEN
+script: 
+  - docker build $BUILD_DIR --tag $TAG
+#  - cd $TEST_DIR && bash $TEST_SCRIPT 
+# after_script:
+#   - docker push $REPO
