@@ -62,7 +62,7 @@ Use `-u` option with `docker run`.
 `docker run -p 24224:24224 -u foo -v ...`
 
 
-### 5. Test it
+### Test it
 
 Once the image is built, it's ready to run.
 Following commands run Fluentd sharing `./log` directory with the host machine:
